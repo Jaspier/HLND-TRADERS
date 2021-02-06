@@ -6,7 +6,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { listProductDetails } from '../actions/productActions';
 
-const ProductScreen = ({ match }) => {
+const ProductScreen = ({ history, match }) => {
   const dispatch = useDispatch();
 
   const productDetails = useSelector(state => state.productDetails);
@@ -15,6 +15,10 @@ const ProductScreen = ({ match }) => {
   useEffect(() => {
     dispatch(listProductDetails(match.params.id));
   }, [dispatch, match]);
+
+  const joinHandler = () => {
+    history.push(`/join/${match.params.id}`);
+  };
 
   return (
     <>
@@ -53,7 +57,11 @@ const ProductScreen = ({ match }) => {
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <Button className='btn-block' type='button'>
+                  <Button
+                    onClick={joinHandler}
+                    className='btn-block'
+                    type='button'
+                  >
                     Join!
                   </Button>
                 </ListGroup.Item>
