@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { JOIN_ITEM, JOIN_CANCEL } from '../constants/joinConstants';
+import {
+  JOIN_ITEM,
+  JOIN_CANCEL,
+  JOIN_SAVE_DISCORD_DETAILS,
+  JOIN_SAVE_PAYMENT_METHOD,
+} from '../constants/joinConstants';
 
 export const join = id => async (dispatch, getState) => {
   const { data } = await axios.get(`/api/products/${id}`);
@@ -24,4 +29,22 @@ export const joinCancel = id => (dispatch, getState) => {
   });
 
   localStorage.setItem('joinItems', JSON.stringify(getState().join.joinItems));
+};
+
+export const saveDiscordDetails = data => dispatch => {
+  dispatch({
+    type: JOIN_SAVE_DISCORD_DETAILS,
+    payload: data,
+  });
+
+  localStorage.setItem('discordDetails', JSON.stringify(data));
+};
+
+export const savePaymentMethod = data => dispatch => {
+  dispatch({
+    type: JOIN_SAVE_PAYMENT_METHOD,
+    payload: data,
+  });
+
+  localStorage.setItem('paymentMethod', JSON.stringify(data));
 };

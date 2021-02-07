@@ -12,6 +12,7 @@ import {
   userDetailsReducer,
   userUpdateProfileReducer,
 } from './reducers/userReducers';
+import { orderCreateReducer } from './reducers/orderReducers';
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -21,6 +22,7 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
+  orderCreate: orderCreateReducer,
 });
 
 const joinItemFromStorage = localStorage.getItem('joinItems')
@@ -31,8 +33,15 @@ const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null;
 
+const discordDetailsFromStorage = localStorage.getItem('discordDetails')
+  ? JSON.parse(localStorage.getItem('discordDetails'))
+  : {};
+
 const initialState = {
-  join: { joinItems: joinItemFromStorage },
+  join: {
+    joinItems: joinItemFromStorage,
+    discordDetails: discordDetailsFromStorage,
+  },
   userLogin: { userInfo: userInfoFromStorage },
 };
 

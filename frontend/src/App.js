@@ -9,6 +9,9 @@ import JoinScreen from './screens/JoinScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import DiscordDetailsScreen from './screens/DiscordDetailsScreen';
+import PaymentScreen from './screens/PaymentScreen';
+import ConfirmJoinScreen from './screens/ConfirmJoinScreen';
 
 const App = () => {
   return (
@@ -16,6 +19,9 @@ const App = () => {
       <Header />
       <main className='py-3'>
         <Container>
+          <Route path='/discord-details' component={DiscordDetailsScreen} />
+          <Route path='/payment' component={PaymentScreen} />
+          <Route path='/confirm-join' component={ConfirmJoinScreen} />
           <Route path='/login' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />
           <Route path='/profile' component={ProfileScreen} />

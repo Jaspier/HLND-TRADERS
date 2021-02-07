@@ -1,6 +1,14 @@
-import { JOIN_ITEM, JOIN_CANCEL } from '../constants/joinConstants';
+import {
+  JOIN_ITEM,
+  JOIN_CANCEL,
+  JOIN_SAVE_DISCORD_DETAILS,
+  JOIN_SAVE_PAYMENT_METHOD,
+} from '../constants/joinConstants';
 
-export const joinReducer = (state = { joinItems: [] }, action) => {
+export const joinReducer = (
+  state = { joinItems: [], discordDetails: {} },
+  action
+) => {
   switch (action.type) {
     case JOIN_ITEM:
       const item = action.payload;
@@ -24,6 +32,16 @@ export const joinReducer = (state = { joinItems: [] }, action) => {
       return {
         ...state,
         joinItems: state.joinItems.filter(x => x.product !== action.payload),
+      };
+    case JOIN_SAVE_DISCORD_DETAILS:
+      return {
+        ...state,
+        discordDetails: action.payload,
+      };
+    case JOIN_SAVE_PAYMENT_METHOD:
+      return {
+        ...state,
+        paymentMethod: action.payload,
       };
     default:
       return state;

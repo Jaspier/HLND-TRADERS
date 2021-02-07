@@ -33,7 +33,7 @@ const JoinScreen = ({ match, history }) => {
   };
 
   const checkoutHandler = () => {
-    history.push('/login?redirect=shipping');
+    history.push('/login?redirect=discord-details');
   };
 
   return (
