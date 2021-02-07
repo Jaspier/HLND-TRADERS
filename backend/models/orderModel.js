@@ -19,6 +19,9 @@ const orderSchema = mongoose.Schema(
         },
       },
     ],
+    discordDetails: {
+      username: { type: String, required: true },
+    },
     paymentMethod: {
       type: String,
       required: true,
