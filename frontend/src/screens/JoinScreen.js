@@ -1,17 +1,9 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Row,
-  Col,
-  ListGroup,
-  Image,
-  Form,
-  Button,
-  Card,
-} from 'react-bootstrap';
-import Message from '../components/Message';
+import { Row, Col, ListGroup, Image, Button, Card } from 'react-bootstrap';
 import { join, joinCancel } from '../actions/joinActions';
+import Message from '../components/Message';
 
 const JoinScreen = ({ match, history }) => {
   const productId = match.params.id;
@@ -29,7 +21,9 @@ const JoinScreen = ({ match, history }) => {
 
   const cancelHandler = id => {
     dispatch(joinCancel(id));
-    history.push('/');
+    if (joinItems.length === 1) {
+      history.push('/');
+    }
   };
 
   const checkoutHandler = () => {
@@ -40,30 +34,36 @@ const JoinScreen = ({ match, history }) => {
     <Row>
       <Col md={8}>
         <h1>Your Plan</h1>
-        <ListGroup variant='flush'>
-          {joinItems.map(item => (
-            <ListGroup.Item key={item.product}>
-              <Row>
-                <Col md={4}>
-                  <Image src={item.image} alt={item.name} fluid rounded />
-                </Col>
-                <Col md={2}>
-                  <Link to={`/product/${item.product}`}>{item.name}</Link>
-                </Col>
-                <Col md={1}>${item.price}</Col>
-                <Col md={1}>
-                  <Button
-                    type='button'
-                    variant='light'
-                    onClick={() => cancelHandler(item.product)}
-                  >
-                    <i className='fas fa-trash'></i>
-                  </Button>
-                </Col>
-              </Row>
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
+        {joinItems.length === 0 ? (
+          <Message>
+            You haven't chosen a plan yet... <Link to='/'>Go Back</Link>
+          </Message>
+        ) : (
+          <ListGroup variant='flush'>
+            {joinItems.map(item => (
+              <ListGroup.Item key={item.product}>
+                <Row>
+                  <Col md={4}>
+                    <Image src={item.image} alt={item.name} fluid rounded />
+                  </Col>
+                  <Col md={2}>
+                    <Link to={`/product/${item.product}`}>{item.name}</Link>
+                  </Col>
+                  <Col md={1}>${item.price}</Col>
+                  <Col md={1}>
+                    <Button
+                      type='button'
+                      variant='light'
+                      onClick={() => cancelHandler(item.product)}
+                    >
+                      <i className='fas fa-trash'></i>
+                    </Button>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        )}
       </Col>
       <Col md={4}>
         <Card>
